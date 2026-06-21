@@ -1,0 +1,20 @@
+name: Deploy Workflow
+
+on:
+  push:
+    branches: [ main, master ]   # ทำงานเมื่อ push ไปที่ main หรือ master
+  workflow_dispatch:             # หรือจะ manual run ก็ได้ (กดปุ่มใน GitHub)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy with ARG1
+        run: |
+          echo "Value is ${{ secrets.ARG1 }}"
+          # ใส่คำสั่ง deploy จริง ๆ ตรงนี้ เช่น forge script หรือ npm run deploy
+        env:
+          ARG1: ${{ secrets.ARG1 }}
